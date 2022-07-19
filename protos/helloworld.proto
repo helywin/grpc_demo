@@ -3,12 +3,13 @@ syntax = "proto3";
 //option java_multiple_files=true;
 //option java_package="io.grpc.example.test1";
 //option java_outer_classname="Test1Proto";
-option objc_class_prefix = "HLW";
+//option objc_class_prefix = "HLW";
 
 package test1;
 
 service TestService{
   rpc getData (Data) returns (MsgReply){}
+  rpc getDataStream (Data) returns (stream MsgReply){}
 }
 
 message Data{
@@ -17,4 +18,16 @@ message Data{
 
 message MsgReply{
   string message = 1;
+}
+
+service Longlived {
+  rpc Subscribe(Request) returns (stream Response) {}
+  rpc Unsubscribe(Request) returns (Response) {}
+}
+
+message Request {
+  int32 id = 1;
+}
+message Response {
+  string data = 1;
 }

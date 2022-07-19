@@ -23,12 +23,23 @@ protobuf_generate(TARGET proto LANGUAGE cpp)
 protobuf_generate(TARGET proto LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc PLUGIN "protoc-gen-grpc=${grpc_cpp_plugin_location}")
 
 add_executable(greeter_server
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/server/greeter_server.cpp
+        src/client_server/greeter_server.cpp
         )
 target_link_libraries(greeter_server proto)
 
 
 add_executable(greeter_client
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/client/greeter_client.cpp
+        src/client_server/greeter_client.cpp
         )
 target_link_libraries(greeter_client proto)
+
+add_executable(publisher
+        src/subscribe_publish/publisher.cpp
+        )
+target_link_libraries(publisher proto)
+
+
+add_executable(subscriber
+        src/subscribe_publish/subscriber.cpp
+        )
+target_link_libraries(subscriber proto)
