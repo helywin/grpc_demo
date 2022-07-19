@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.18)
 project(grpc_demo)
 
-find_package(GRPC REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
+find_package(gRPC REQUIRED)
 
 set(PROTO_FILES
         protos/helloworld.proto
@@ -13,7 +13,9 @@ target_link_libraries(proto
         protobuf::libprotobuf
         gRPC::grpc
         gRPC::grpc++
+        z # zlib
         )
+
 target_include_directories(proto PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
 get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
